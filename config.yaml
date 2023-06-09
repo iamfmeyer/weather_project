@@ -1,0 +1,14 @@
+open_weather_api:
+    current_weather: "https://api.openweathermap.org/data/2.5/weather?q="
+    locations: [
+        Berlin, 
+        Munich,
+        Cologne,
+        Frankfurt,
+        Bonn,
+        Barcelona,
+        Rome,
+        ]
+    unit: metric
+storage_location: "/Users/fredo/Dev/Repos/weather-project/data"
+      
