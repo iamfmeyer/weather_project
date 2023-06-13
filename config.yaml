@@ -10,5 +10,7 @@ open_weather_api:
         Rome,
         ]
     unit: metric
-storage_location: "/Users/fredo/Dev/Repos/weather-project/data"
+data_storage_location: 
+    bronze: "/Users/fredo/Dev/Repos/weather-project/src/bronze/data"
+    silver: "/Users/fredo/Dev/Repos/weather-project/src/silver/data"
       
