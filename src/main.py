@@ -1,6 +1,6 @@
 from OpenWeather import OpenWeather
-from read_data import get_weather_data
-from store_data import weather_to_dataframe, weather_data_to_csv
+from bronze.read_data import get_weather_data
+from bronze.store_data import weather_to_dataframe, weather_data_to_csv
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
     print(current_weather_dict)
 
     pdf_current_weather = weather_to_dataframe(current_weather_dict)
-    weather_data_to_csv(pdf_current_weather, open_weather.storage_location)
+    weather_data_to_csv(pdf_current_weather, open_weather.storage_location_bronze)
 
 
 if __name__ == "__main__":
