@@ -1,3 +1,5 @@
+base_path: "/home/fmeyer/code/repos/weather_project"
+secrets: "${base_path}/secrets/api.yaml"
 open_weather_api:
     current_weather: "https://api.openweathermap.org/data/2.5/weather?q="
     locations: [
@@ -11,6 +13,6 @@ open_weather_api:
         ]
     unit: metric
 data_storage_location: 
-    bronze: "/Users/fredo/Dev/Repos/weather-project/src/bronze/data"
-    silver: "/Users/fredo/Dev/Repos/weather-project/src/silver/data"
+    bronze: "${base_path}/src/bronze/data"
+    silver: "${base_path}/src/silver/data"
       
