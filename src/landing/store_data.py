@@ -1,10 +1,17 @@
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
-import time
 
 
 def weather_to_dataframe(weather_data: dict) -> pd.DataFrame:
+    """This function converts the weather data into a pandas dataframe
+
+    Args:
+        weather_data (dict): A dictionary containing the weather data
+
+    Returns:
+        pd.DataFrame: A pandas dataframe containing the weather data
+    """
     pdf_current_weather = pd.DataFrame(
         columns=[
             "_timestamp",
@@ -21,7 +28,7 @@ def weather_to_dataframe(weather_data: dict) -> pd.DataFrame:
 
     for k, v in weather_data.items():
         current_city_dict = dict()
-        current_city_dict["_timestamp"] = datetime.now()
+        current_city_dict["_timestamp"] = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         current_city_dict["city"] = k
         current_city_dict["country"] = v["sys"]["country"]
         current_city_dict["weather_description"] = v["weather"][0]["description"]
@@ -32,32 +39,35 @@ def weather_to_dataframe(weather_data: dict) -> pd.DataFrame:
         current_city_dict["long"] = v["coord"]["lon"]
 
         pdf_current_city = pd.DataFrame(current_city_dict, index=[0])
-        print(pdf_current_city)
         pdf_current_weather = pd.concat(
-            [pdf_current_weather, pdf_current_city], ignore_index=True
+            [
+                pdf_current_weather if not pdf_current_weather.empty else None,
+                pdf_current_city,
+            ],
+            ignore_index=True,
         )
     return pdf_current_weather
 
 
-def weather_data_to_csv(
+def weather_data_to_parquet(
     pdf_current_weather_data: pd.DataFrame, storage_location: str
 ) -> None:
-    csv_path = Path(storage_location) / "current_weather.csv"
-    # Check if csv exists
-    if Path(csv_path).is_file():
-        print(
-            """
-                Appending new weather data to existing CSV file...
-                """
-        )
-        pdf_current_weather_data.to_csv(csv_path, mode="a", header=False, index=False)
+    """This function stores the current weather data in a parquet file
 
-    else:
+    Args:
+        pdf_current_weather_data (pd.DataFrame): A pandas dataframe containing the weather data
+        storage_location (str): A string containing the path to the directory where the parquet file should be stored
+    """
+    # Check if directory exists
+    storage_location = Path(storage_location)
+    if not storage_location.is_dir():
+        storage_location.mkdir(parents=True)
         print(
             """
-            CSV file for storing weather does not exists yet.\n
+            Directory for storing weather data does not exist yet.\n
             Creating it...
             """
         )
-        # Create new csv file and store weather data
-        pdf_current_weather_data.to_csv(csv_path, mode="w", header=True, index=False)
+    current_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    file_path = Path(f"{storage_location}/{current_timestamp}.parquet")
+    pdf_current_weather_data.to_parquet(file_path, engine="pyarrow")

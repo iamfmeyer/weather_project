@@ -10,15 +10,15 @@ class OpenWeather:
         self.config_path = Path("/home/fmeyer/code/repos/weather_project/config.yaml")
         self.config_args = self.get_config_parameters()
 
-        print(self.config_args)
-
         self.secrets_path = Path(self.config_args["secrets_path"])
         self._load_api_key()
 
         self.current_weather_url: str = self.config_args["current_weather_url"]
         self.locations: list = self.config_args["locations"]
         self.unit: str = self.config_args["unit"]
-        self.storage_location_bronze: str = self.config_args["storage_location_bronze"]
+        self.storage_location_landing: str = self.config_args[
+            "storage_location_landing"
+        ]
         self.storage_location_silver: str = self.config_args["storage_location_silver"]
 
     def _load_api_key(self) -> None:
@@ -40,18 +40,17 @@ class OpenWeather:
                 config = OmegaConf.load(f)
 
                 secrets_path: str = config.secrets
-                print(secrets_path)
                 current_weather_url: str = config.open_weather_api.current_weather
                 locations: list = config.open_weather_api.locations
                 unit: str = config.open_weather_api.unit
-                storage_location_bronze: str = config.data_storage_location.bronze
+                storage_location_landing: str = config.data_storage_location.landing
                 storage_location_silver: str = config.data_storage_location.silver
                 config_args_dict = {
                     "secrets_path": secrets_path,
                     "current_weather_url": current_weather_url,
                     "locations": locations,
                     "unit": unit,
-                    "storage_location_bronze": storage_location_bronze,
+                    "storage_location_landing": storage_location_landing,
                     "storage_location_silver": storage_location_silver,
                 }
 

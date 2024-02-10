@@ -13,6 +13,5 @@ open_weather_api:
         ]
     unit: metric
 data_storage_location: 
-    bronze: "${base_path}/src/bronze/data"
+    landing: "${base_path}/src/landing/data"
     silver: "${base_path}/src/silver/data"
-      

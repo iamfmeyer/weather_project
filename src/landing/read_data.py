@@ -11,7 +11,6 @@ def get_weather_data(base_url: str, locations: list, unit: str, api_key: str) ->
         try:
             response = requests.get(url)
         except requests.HTTPError:
-            print(response.status_code)
             break
 
         weather_data = response.json()
