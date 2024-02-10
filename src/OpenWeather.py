@@ -22,6 +22,9 @@ class OpenWeather:
         self.storage_location_silver: str = self.config_args["storage_location_silver"]
 
     def _load_api_key(self) -> None:
+        """
+        This function loads the api key from the secrets file
+        """
         try:
             with self.secrets_path.open(mode="r", encoding="utf-8") as f:
                 secrets: dict = yaml.safe_load(f)
@@ -32,9 +35,19 @@ class OpenWeather:
             print("File could not be found.\n" + str(e))
 
     def get_api_key(self) -> str:
+        """This function returns the api key
+
+        Returns:
+            str: A string containing the api key
+        """
         return self._api_key
 
     def get_config_parameters(self) -> dict:
+        """This function returns the config parameters
+
+        Returns:
+            dict: A dictionary containing the config parameters
+        """
         try:
             with self.config_path.open(mode="r", encoding="utf-8") as f:
                 config = OmegaConf.load(f)

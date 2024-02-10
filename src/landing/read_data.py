@@ -1,9 +1,18 @@
-import json
 import requests
-import time
 
 
 def get_weather_data(base_url: str, locations: list, unit: str, api_key: str) -> dict:
+    """This function retrieves the weather data from the open weather api
+
+    Args:
+        base_url (str): A string containing the base url
+        locations (list): A list containing the locations
+        unit (str): A string containing the unit
+        api_key (str): A string containing the api key
+
+    Returns:
+        dict: A dictionary containing the weather data
+    """
     current_weather_dict = dict()
 
     for city in locations:
