@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "weather-project"
+version = "0.1.0"
+description = "Just a fun project in order to implement an ELT pipeline using OpenWeather API."
+authors = ["Frederic Meyer"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+requests = "^2.31.0"
+omegaconf = "^2.3.0"
+PyYAML = "^6.0.1"
+pathlib = "^1.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
